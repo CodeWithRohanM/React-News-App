@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url(/Users/rohanmote/Desktop/Test_React_News_App/newsshark/src/CategoryBackgrounds/technology.jpg);
+  /* background-image: url(/Users/rohanmote/Desktop/Test_React_News_App/newsshark/src/CategoryBackgrounds/technology.jpg); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
