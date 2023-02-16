@@ -1,13 +1,13 @@
 import { Component } from "react";
-import Loading from "/Users/rohanmote/Desktop/Test_React_News_App/newsshark/src/Components/loading.gif";
 
 export default class Spinner extends Component {
 
     render() {
         return <>
 
-            <div className="flex container mx-auto">
-                <img src={Loading} alt="Loading" className="flex h-24 w-32 mx-auto"></img>
+            <div className="flex flex-col gap-y-5 items-center">
+                <h1 className="text-xl text-white font-bold tracking-widest antialiased">Getting Latest News Just For You.. 🗞️🗞️</h1>
+                <img src="/loadingGif.gif" alt="Loading" className="h-24 w-32 rounded-2xl"></img>
             </div>
         </>
     }

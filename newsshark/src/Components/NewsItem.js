@@ -5,9 +5,9 @@ export default class NewsItem extends Component {
     render() {
         return <>
 
-            <div className="flex justify-center">
-                <div className="rounded-lg shadow-lg bg-white max-w-sm">
-                    <div className="h-60">
+            <div className="flex justify-center antialiased">
+                <div className="rounded-3xl shadow-2xl bg-white max-w-sm">
+                    <div className="h-60 shadow-xl">
                         <a href={this.props.url} target="_blank" data-mdb-ripple="true" data-mdb-ripple-color="light">
                             <img className="rounded-t-lg object-cover h-60 w-full" src={this.props.urlToImage} alt="" />
                         </a>
@@ -15,13 +15,18 @@ export default class NewsItem extends Component {
 
                     <div className="h-72 p-6">
 
- 
 
-                        <div className="h-1/2 ">
-                        <p className="text-gray-600 text-xs">{`Updated At: ${this.props.getMinutes} ${this.props.getMinutes} ${this.props.amPm}`}</p>
+
+                        <div className="h-1/2">
+                            <div className="flex flex-row justify-between w-full">
+                                <h1 className="text-gray-600 text-xs font-bold">{`Updated At: ${this.props.getHours}:${this.props.getMinutes} ${this.props.amPm}`}</h1>
+
+                                <h1 className="text-gray-600 text-xs font-bold">{`${this.props.getDay}-${this.props.getMonth}-${this.props.getYear}`}</h1>
+                            </div>
+
                             <a href={this.props.url} target="_blank"><h5 className="text-gray-900 text-xl font-medium font-bold pt-3">{this.props.title}..</h5></a>
 
-                            <p className="text-gray-700 text-base pt-6 ">
+                            <p className="text-gray-700 text-base pt-6">
                                 {this.props.description}..
                             </p>
                         </div>

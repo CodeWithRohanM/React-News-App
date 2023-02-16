@@ -5,5 +5,19 @@ const countryName = (country) =>{
     }
 };
 
+const searchCountryStatus = (status) =>{
+    return {
+        type: "SEARCH_COUNTRY_STATUS",
+        payLoad: status,
+    }
+};
 
-export {countryName};
+const loadingStatus = (status) =>{
+    return {
+        type: "LOADING_STATUS",
+        payLoad: status,
+    }
+};
+
+
+export {countryName, searchCountryStatus, loadingStatus};

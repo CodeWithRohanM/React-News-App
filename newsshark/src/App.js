@@ -37,45 +37,6 @@ export default function App() {
 
 
 
-  const [country, setCountry] = useState(currentCountryName);
-
-  
-  // const location = useLocation();
-
-  // const decideLocation = ()=>{
-  //   if(location.pathname === "/")
-  //   {
-  //     return "general";
-  //   }
-  //   else if(location.pathname === "/sports")
-  //   {
-  //     return "sports";
-  //   }
-  //   else if(localStorage.pathname === "/business")
-  //   {
-  //     return "business";
-  //   }
-  //   else if(location.pathname === "/technology")
-  //   {
-  //     return "technology";
-  //   }
-  //   else if(location.pathname === "/science")
-  //   {
-  //     return "science";
-  //   }
-  //   else if(location.pathname === "/health")
-  //   {
-  //     return "health";
-  //   }
-  //   else if(location.pathname === "entertainment")
-  //   {
-  //     return "entertainment";
-  //   }
-  // };
-
-
-
-
   return <>
 
     <Router>
