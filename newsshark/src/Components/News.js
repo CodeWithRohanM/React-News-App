@@ -12,7 +12,7 @@ export default function News(props) {
 
     const currentCountryName = useSelector((state) => state.changeNews.country);
     const getSearchCountryStatus = useSelector((state) => state.changeNews.searchCountryStatus);
-    const getLoadingStatus = useSelector((state)=> state.changeNews.loading);
+    const getLoadingStatus = useSelector((state) => state.changeNews.loading);
     const dispatch = useDispatch();
 
 
@@ -189,7 +189,7 @@ export default function News(props) {
 
 
         <div id="headline" className="flex container mx-auto text-white items-center my-12 antialiased">
-            <div className="mx-auto gap-6 flex flex-row items-center w-auto px-44 py-3 bg-red-300 text-center justify-center font-bold bg-gradient-to-r from-red-300 via-red-500 to-red-300 rounded-full tracking-wide">
+            <div className="mx-auto gap-6 flex flex-row items-center w-auto px-44 py-3 bg-red-300 text-center justify-center font-bold bg-gradient-to-r from-red-300 via-red-500 to-red-300 rounded-full tracking-wider">
                 <img src={props.categoryIcon} className="w-15 h-14"></img>
                 <h1 className="text-5xl">TOP {props.headline} HEADLINES</h1>
             </div>
@@ -198,7 +198,7 @@ export default function News(props) {
 
 
         <div id="displayDate" className="flex container mx-auto text-white items-center my-12 antialiased">
-            <h1 className="flex container mx-auto w-auto px-12 py-2 bg-red-300 text-3xl text-center justify-center font-bold bg-gradient-to-r from-red-200 via-red-500 to-red-200">Today: {getTodaysDate}</h1>
+            <h1 className="flex container mx-auto w-auto px-12 py-2 bg-red-300 text-3xl text-center justify-center font-bold bg-gradient-to-r from-red-200 via-red-500 to-red-200 rounded-md shadow-2xl tracking-wider">Today: {getTodaysDate}</h1>
         </div>
 
         {getLoadingStatus && <Spinner />}
@@ -212,9 +212,11 @@ export default function News(props) {
             loader={<Spinner />}
         >
 
-            <div id="setLayout" className="flex container mx-auto grid grid-cols-3 gap-x-4 my-20 gap-y-12 antialiased">
+            <div id="setLayout" className="flex container mx-auto grid grid-cols-3 gap-x-4 my-16 gap-y-12 antialiased items-center">
                 {
-                    !status && <h1 className="text-white font-bold text-xl tracking-wider">Could Not Find The Relative Country..<br /> Please Try Again..</h1>
+                    !status && <div className="flex mx-96 w-full">
+                        <h1 className="text-white font-bold text-xl tracking-wider">Could Not Find The Relative Country..<br /> Please Try Again..</h1>
+                    </div>
                 }
 
                 {status && !getLoadingStatus && !getSearchCountryStatus && articles.map((element) => {
@@ -246,9 +248,9 @@ export default function News(props) {
 
 
 
-            <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Page {pageNumber}</button>
+            <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Page {pageNumber}</button>
 
-            <button disabled={pageNumber >= Math.ceil(totalResults / 6)} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2">Next &raquo;</button>
+            <button disabled={pageNumber >= Math.ceil(totalResults / 6)} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Next &raquo;</button>
 
         </div>
 

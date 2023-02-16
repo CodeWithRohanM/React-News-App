@@ -38,12 +38,12 @@ export default function Header(props) {
         <div id="outerContaimer" className="sticky top-0 font-mono backdrop-filter backdrop-blur-lg bg-opacity-30 border-b border-gray-200 antialiased">
             <div id="innerContainer" className="flex flex-row px-8 py-4 items-center ">
                 <a href="/"
-                  id="firstBox" className="flex flex-row text-white hover:text-blue-300 focus:text-blue-300 gap-3 px-4 py-2 w-1/4 items-center rounded-full bg-gradient-to-r from-yellow-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 ">
+                  id="firstBox" className="flex flex-row text-white hover:text-blue-300 focus:text-blue-300 gap-3 px-4 py-2 w-1/4 items-center rounded-xl border-gray-300 border bg-gradient-to-r from-yellow-500 hover:bg-gradient-to-br focus:ring focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 ">
                     <img src="/Icons/shark.png" className="w-12 h-10 " alt="Icon"></img>
                     <h1 className="font-bold text-2xl">NewsShark</h1>
                 </a>
 
-                <div id="secondBox" className="flex flex-row gap-5 font-extrabold text-white text-lg mx-8 w-9/12">
+                <div id="secondBox" className="flex flex-row gap-5 font-extrabold text-white text-lg mx-8 w-9/12 ">
 
                     <NavLink style={({ isActive }) => ({
                         color: isActive ? "#93c5fd" : "white",
@@ -86,14 +86,14 @@ export default function Header(props) {
                         id="first_name" 
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                         name="country" 
-                        placeholder="Enter Your Country" 
+                        placeholder="Enter Your Country.." 
                         value={getCountryName} onChange={storeCountryName}
                         onKeyDown={callCountryAPIUsingEnter}
                         />
 
-                        <button className="bg-gradient-to-r from-yellow-500 rounded-full px-3 py-2 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80" 
+                        <button className="bg-gradient-to-r from-yellow-500 rounded-md px-5 border-gray-300 border py-2 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 tracking-wide" 
                         onClick={callCountryAPI}
-                        >Get News</button>
+                        >Search</button>
                     </div>
 
 
