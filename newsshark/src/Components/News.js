@@ -12,7 +12,6 @@ export default function News(props) {
 
     const currentCountryName = useSelector((state) => state.changeNews.country);
     const getSearchCountryStatus = useSelector((state) => state.changeNews.searchCountryStatus);
-    const getLoadingStatus = useSelector((state) => state.changeNews.loading);
     const dispatch = useDispatch();
 
 
@@ -31,7 +30,7 @@ export default function News(props) {
 
     useEffect(() => {
 
-
+        setLoading(true);
         setProgress(20);
 
         document.body.style.backgroundImage = `url(${props.backgroundImage})`;
@@ -50,9 +49,9 @@ export default function News(props) {
                     setArticles(getData.articles);
                     setTotalResults(getData.totalResults);
                     setPageNumber(pageNumber + 1);
-                    // setLoading(false);
-                    dispatch(loadingStatus(false));
-                    dispatch(searchCountryStatus(false));
+                    setLoading(false);
+                    // dispatch(loadingStatus(false));
+                    // dispatch(searchCountryStatus(false));
                 }, 3000);
             } catch (err) {
                 setStatus(false);
@@ -138,8 +137,8 @@ export default function News(props) {
             setTimeout(() => {
                 setArticles(articles.concat(getData.articles));
                 // setPageNumber(pageNumber+1);
-                // setLoading(false);
-                dispatch(loadingStatus(false));
+                setLoading(false);
+                // dispatch(loadingStatus(false));
                 setStatus(true);
             }, 1500);
 
@@ -187,70 +186,72 @@ export default function News(props) {
         />
 
 
+        <div className="flex flex-col items-center w-screen ">
 
-        <div id="headline" className="flex container mx-auto text-white items-center my-12 antialiased">
-            <div className="mx-auto gap-6 flex flex-row items-center w-auto px-44 py-3 bg-red-300 text-center justify-center font-bold bg-gradient-to-r from-red-300 via-red-500 to-red-300 rounded-full tracking-wider">
-                <img src={props.categoryIcon} className="w-15 h-14"></img>
-                <h1 className="text-5xl">TOP {props.headline} HEADLINES</h1>
+            <div className="flex flex-row container mx-auto text-white my-12 antialiased items-center xs:gap-x-4 md:gap-x-6 xs:py-1 md:py-3 justify-center font-bold bg-gradient-to-r from-red-300 via-red-500 to-red-300 rounded-full">
+                <img src={props.categoryIcon} className="w-14 h-14"></img>
+                <h1 className="tracking-wider xs:text-md sm:text-2xl md:text-5xl">TOP {props.headline} HEADLINES</h1>
             </div>
-        </div>
 
 
 
-        <div id="displayDate" className="flex container mx-auto text-white items-center my-12 antialiased">
-            <h1 className="flex container mx-auto w-auto px-12 py-2 bg-red-300 text-3xl text-center justify-center font-bold bg-gradient-to-r from-red-200 via-red-500 to-red-200 rounded-md shadow-2xl tracking-wider">Today: {getTodaysDate}</h1>
-        </div>
+            <div id="displayDate" className="flex container mx-auto text-white items-center my-12 antialiased">
+                <h1 className="flex container mx-auto w-auto px-12 py-2 bg-red-300 text-3xl text-center justify-center font-bold bg-gradient-to-r from-red-200 via-red-500 to-red-200 rounded-md shadow-2xl tracking-wider">Today: {getTodaysDate}</h1>
+            </div>
 
-        {getLoadingStatus && <Spinner />}
-        {/* {!getLoadingStatus && getSearchCountryStatus && <Spinner />} */}
+            {
+                loading && <Spinner />
+            }
 
 
-        <InfiniteScroll
-            next={hasMorePosts}
-            dataLength={articles.length}
-            hasMore={articles.length !== totalResults}
-            loader={<Spinner />}
-        >
 
-            <div id="setLayout" className="flex container mx-auto grid grid-cols-3 gap-x-4 my-16 gap-y-12 antialiased items-center">
+            <InfiniteScroll
+                next={hasMorePosts}
+                dataLength={articles.length}
+                hasMore={articles.length !== totalResults}
+                loader={<Spinner />}>
+
                 {
-                    !status && <div className="flex mx-96 w-full">
-                        <h1 className="text-white font-bold text-xl tracking-wider">Could Not Find The Relative Country..<br /> Please Try Again..</h1>
-                    </div>
+                    !status && <h1 className="flex flex-row flex-wrap justify-center text-white font-bold text-xl tracking-wider bg-transparent border border-white-2 p-3 rounded-md shadow-xl ">Could Not Find The Relative Country..<br /> Please Try Again..</h1>
                 }
+                
+                <div id="setLayout" className="flex container mx-auto grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-2 md:gap-x-4 my-16 gap-y-12 antialiased justify-center max-w-lg bg-blue-400">
 
-                {status && !getLoadingStatus && !getSearchCountryStatus && articles.map((element) => {
 
-                    return <NewsItem
-                        getHours={element.publishedAt.slice(11, 13)}
-                        getMinutes={element.publishedAt.slice(14, 16)}
-                        getDay={element.publishedAt.slice(8, 10)}
-                        getMonth={element.publishedAt.slice(5, 7)}
-                        getYear={element.publishedAt.slice(0, 4)}
-                        amPm={element.publishedAt.slice(11, 13) >= 12 ? `PM` : 'AM'}
-                        key={element.url}
-                        url={element.url}
-                        urlToImage={element.urlToImage ? element.urlToImage : imagesArray[Math.floor(Math.random() * imagesArray.length)]}
-                        title={element.title.slice(0, 60)}
-                        description={element.description ? element.description.slice(0, 90) : "Click On The Title To Know More..."} />
-                })}
+                    {status && !loading && articles.map((element) => {
+
+                        return <NewsItem
+                            getHours={element.publishedAt.slice(11, 13)}
+                            getMinutes={element.publishedAt.slice(14, 16)}
+                            getDay={element.publishedAt.slice(8, 10)}
+                            getMonth={element.publishedAt.slice(5, 7)}
+                            getYear={element.publishedAt.slice(0, 4)}
+                            amPm={element.publishedAt.slice(11, 13) >= 12 ? `PM` : 'AM'}
+                            key={element.url}
+                            url={element.url}
+                            urlToImage={element.urlToImage ? element.urlToImage : imagesArray[Math.floor(Math.random() * imagesArray.length)]}
+                            title={element.title.slice(0, 60)}
+                            description={element.description ? element.description.slice(0, 90) : "Click On The Title To Know More..."} />
+                    })}
+                </div>
+            </InfiniteScroll>
+
+
+
+
+
+
+            <div id="fotterButtons" className="flex flex-col gap-y-3 items-center md:flex-row md:justify-around flex-wrap my-12 antialiased bg-red-400 w-full">
+
+                <button disabled={pageNumber <= 1} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2">&laquo; Previous</button>
+
+
+
+                <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Page {pageNumber}</button>
+
+                <button disabled={pageNumber >= Math.ceil(totalResults / 6)} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Next &raquo;</button>
+
             </div>
-        </InfiniteScroll>
-
-
-
-
-
-
-        <div id="fotterButtons" className="flex container mx-auto flex-row justify-between my-12 antialiased">
-
-            <button disabled={pageNumber <= 1} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2">&laquo; Previous</button>
-
-
-
-            <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Page {pageNumber}</button>
-
-            <button disabled={pageNumber >= Math.ceil(totalResults / 6)} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2 hover:cursor-pointer">Next &raquo;</button>
 
         </div>
 
