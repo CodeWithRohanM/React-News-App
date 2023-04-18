@@ -5,11 +5,11 @@ export default class NewsItem extends Component {
     render() {
         return <>
 
-            <div className="flex justify-center antialiased">
+            <div className="flex justify-center antialiased hover:-translate-y-1 transition ease-in-out duration-600 ">
                 <div className="rounded-3xl shadow-2xl bg-white max-w-sm">
                     <div className="h-60 shadow-xl">
                         <a href={this.props.url} target="_blank" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                            <img className="rounded-t-lg object-cover h-60 w-full" src={this.props.urlToImage} alt="" />
+                            <img className="rounded-t-xl object-cover h-60 w-full" src={this.props.urlToImage} alt="" />
                         </a>
                     </div>
 
@@ -24,7 +24,7 @@ export default class NewsItem extends Component {
                                 <h1 className="text-gray-600 text-xs font-bold">{`${this.props.getDay}-${this.props.getMonth}-${this.props.getYear}`}</h1>
                             </div>
 
-                            <a href={this.props.url} target="_blank"><h5 className="text-gray-900 text-xl font-medium font-bold pt-3">{this.props.title}..</h5></a>
+                            <a href={this.props.url} target="_blank"><h5 className="text-gray-900 text-xl font-medium font-bold pt-3 hover:text-blue-600">{this.props.title}..</h5></a>
 
                             <p className="text-gray-700 text-base pt-6">
                                 {this.props.description}..

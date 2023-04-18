@@ -22,6 +22,9 @@ export default function News(props) {
     const [loading, setLoading] = useState(true);
     const [progress, setProgress] = useState(0);
     const [status, setStatus] = useState(true);
+    const [sortOrder, setSortOrder] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState("Could Not Find The Relative Country..\nPlease Try Again..");
+    const [pageEnd, setPageEnd] = useState(false);
 
 
     // const [progress, setProgress] = useState(0);
@@ -46,7 +49,7 @@ export default function News(props) {
 
 
                 setTimeout(() => {
-                    setArticles(getData.articles);
+                    !sortOrder ? setArticles(getData.articles.sort((a, b) => a.publishedAt - b.publishedAt)) : setArticles(getData.articles.sort((a, b) => b.publishedAt - a.publishedAt));
                     setTotalResults(getData.totalResults);
                     setPageNumber(pageNumber + 1);
                     setLoading(false);
@@ -67,7 +70,7 @@ export default function News(props) {
 
         console.log('Status = ' + status);
 
-    }, [currentCountryName]);
+    }, [currentCountryName, sortOrder]);
 
 
 
@@ -135,11 +138,18 @@ export default function News(props) {
             const getData = await p.json();
 
             setTimeout(() => {
-                setArticles(articles.concat(getData.articles));
-                // setPageNumber(pageNumber+1);
-                setLoading(false);
-                // dispatch(loadingStatus(false));
-                setStatus(true);
+                if (getData) {
+                    setArticles(articles.concat(getData.articles));
+                    // setPageNumber(pageNumber+1);
+                    setLoading(false);
+                    // dispatch(loadingStatus(false));
+                    setStatus(true);
+                    // setPageEnd(false);
+                } else {
+                    setPageEnd(true);
+                    setStatus(false);
+                }
+
             }, 1500);
 
         } catch (err) {
@@ -195,13 +205,17 @@ export default function News(props) {
 
 
 
-            <div id="displayDate" className="flex container mx-auto text-white items-center my-12 antialiased">
+            <div id="displayDate" className="flex flex-row  container mx-auto text-white items-center my-8 antialiased">
                 <h1 className="flex container mx-auto w-auto px-12 py-2 bg-red-300 text-3xl text-center justify-center font-bold bg-gradient-to-r from-red-200 via-red-500 to-red-200 rounded-md shadow-2xl tracking-wider">Today: {getTodaysDate}</h1>
+
+                <img src={`${sortOrder ? "/Icons/sort_down.png" : "/Icons/sort_up.png"}`} className="h-12 w-12 bg-red-400 rounded-md w-12 h-12 p-2 shadow-2xl hover:scale-105 hover:-translate-y-1 transition ease-in-out duration-300 hover:cursor-pointer" onClick={() => sortOrder ? setSortOrder(false) : setSortOrder(true)}></img>
+
             </div>
 
             {
-                loading && <Spinner />
+                loading && !pageEnd && <Spinner />
             }
+
 
 
 
@@ -212,10 +226,10 @@ export default function News(props) {
                 loader={<Spinner />}>
 
                 {
-                    !status && <h1 className="flex flex-row flex-wrap justify-center text-white font-bold text-xl tracking-wider bg-transparent border border-white-2 p-3 rounded-md shadow-xl ">Could Not Find The Relative Country..<br /> Please Try Again..</h1>
+                    !status && <h1 className="flex flex-row flex-wrap justify-center text-white font-bold text-xl tracking-wider bg-transparent border border-white-2 p-3 rounded-md shadow-xl backdrop-filter backdrop-blur-sm ">{`${!pageEnd ? "Could Not Find The Relevant Country..\nPlease Try Again.." : "Thats All For Today..\nTry Looking For A Different Category.."}`}</h1>
                 }
-                
-                <div id="setLayout" className="flex container mx-auto grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-x-2 md:gap-x-4 my-16 gap-y-12 antialiased justify-center max-w-lg bg-blue-400">
+
+                <div id="setLayout" className="flex container mx-auto grid grid-cols-3 gap-x-8 my-12 gap-y-12 antialiased justify-center">
 
 
                     {status && !loading && articles.map((element) => {
@@ -241,7 +255,7 @@ export default function News(props) {
 
 
 
-            <div id="fotterButtons" className="flex flex-col gap-y-3 items-center md:flex-row md:justify-around flex-wrap my-12 antialiased bg-red-400 w-full">
+            <div id="fotterButtons" className="flex flex-col gap-y-3 items-center md:flex-row md:justify-around flex-wrap my-12 antialiased w-full">
 
                 <button disabled={pageNumber <= 1} type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-20 py-2.5 text-center mr-2 mb-2">&laquo; Previous</button>
 
