@@ -14,6 +14,8 @@ export default function News(props) {
     const getSearchCountryStatus = useSelector((state) => state.changeNews.searchCountryStatus);
     const dispatch = useDispatch();
 
+    const API_KEY = process.env.REACT_APP_API_KEY;
+
 
 
     const [articles, setArticles] = useState([]);
@@ -40,7 +42,7 @@ export default function News(props) {
 
         const callAPI = async () => {
             try {
-                let p = await fetch(`https://newsapi.org/v2/top-headlines?country=${currentCountryName}&category=${props.category}&pageSize=6&apiKey=17acba01570847a69a036cc5a55e3b31&page=${pageNumber}`);
+                let p = await fetch(`https://newsapi.org/v2/top-headlines?country=${currentCountryName}&category=${props.category}&pageSize=6&apiKey=${API_KEY}&page=${pageNumber}`);
 
                 const getData = await p.json();
 
