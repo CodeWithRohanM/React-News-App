@@ -43,5 +43,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeWithRohanM/Test_React_News_App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CodeWithRohanM/Test_React_News_App/issues"
+  },
+  "homepage": "https://github.com/CodeWithRohanM/Test_React_News_App#readme"
 }
